@@ -1,0 +1,34 @@
+<div class="cart-item flexbox rounded-box">
+  <button (click)="removeFromCart()" class="flexbox remove-button">
+    <img src="../../../assets/images/x-circle.svg" />
+  </button>
+  <img src="{{ cartItem.url }}" alt="{{ cartItem.name }}" />
+  <div class="description flexcol rounded-box">
+    <h3>{{ cartItem.name }}</h3>
+    <p>{{ cartItem.description }}</p>
+  </div>
+  <div class="price flexcol rounded-box">
+    <h4>Price</h4>
+    <p>{{ cartItem.price }}</p>
+  </div>
+  <div class="quantity flexcol rounded-box">
+    <h4>Quantity</h4>
+    <input
+      type="number"
+      value="{{ cartItem.quantity }}"
+      (change)="setQuantity($event)"
+      min="1"
+      max="10"
+    />
+    <button
+      *ngIf="cartItem.quantity !== updatedQuantity"
+      (click)="updateCartItem()"
+    >
+      Apply
+    </button>
+  </div>
+  <div class="total flexcol rounded-box">
+    <h4>Total</h4>
+    <p>{{ total }}</p>
+  </div>
+</div>

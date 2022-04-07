@@ -1,0 +1,23 @@
+{
+  "name": "fullstackofpancakes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:frontend": "npm run start -w packages/storeFront",
+    "dev:server": "npm run dev -w packages/storeFront_API",
+    "build:frontend": "npm run build -w packages/storeFront",
+    "build:server": "npm run build -w packages/storeFront_API"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/storeFront",
+    "packages/storeFront_API"
+  ],
+  "volta": {
+    "node": "16.14.2"
+  }
+}

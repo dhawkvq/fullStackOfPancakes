@@ -1,0 +1,32 @@
+<div class="main">
+  <div class="item-details">
+    <div
+      class="item-added-banner"
+      [ngClass]="currentClasses['productAddedToCart'] ? 'show' : ''"
+    >
+      Item Added
+    </div>
+    <img src="{{ product.url }}" alt="{{ product.name }}" />
+    <div class="right-container">
+      <h2>{{ product.name }}</h2>
+      <p>{{ product.description }}</p>
+      <span>${{ product.price }}</span>
+      <input
+        type="number"
+        [ngModel]="quantity"
+        (ngModelChange)="quantity = $event"
+        min="1"
+        max="10"
+      />
+      <app-icon-button
+        class="add-button"
+        [iconOption]="iconOption"
+        buttonText="Add Item"
+        (click)="addProductToCart()"
+        (mouseover)="lightIcon = true"
+        (mouseout)="lightIcon = false"
+        strokeColor="{{ lightIcon ? 'white' : 'black' }}"
+      ></app-icon-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="flex main" *ngIf="cartTotal">
+  <div class="left-container">
+    <div class="flex-col cart">
+      <app-cart-item
+        *ngFor="let cartItem of cartItems"
+        [cartItem]="cartItem"
+        (removeItemEvent)="removeFromCart(cartItem.id)"
+        (updateItemEvent)="updateItem($event)"
+      ></app-cart-item>
+    </div>
+    <div class="bottom-gradient"></div>
+  </div>
+  <div class="flex-col middle-container">
+    <h2>Cart Total</h2>
+    <p>${{ cartTotal }}</p>
+  </div>
+  <div class="flex right-container">
+    <app-user-checkout-form></app-user-checkout-form>
+  </div>
+</div>
+
+<div class="flex-col no-cart" *ngIf="!cartTotal">
+  <h1>No cart items just yet</h1>
+  <div class="emojis">🙅‍♀️🛒</div>
+</div>

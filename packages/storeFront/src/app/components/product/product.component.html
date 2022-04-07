@@ -1,0 +1,29 @@
+<div class="product">
+  <div
+    class="item-added-banner"
+    [ngClass]="currentClasses['productAddedToCart'] ? 'show' : ''"
+  >
+    Item Added
+  </div>
+  <h3>{{ product.name }}</h3>
+  <a routerLink="product/{{ product.id }}">
+    <img src="{{ product.url }}" alt="product" />
+  </a>
+  <span>${{ product.price }}</span>
+  <input
+    type="number"
+    value="{{ quantity }}"
+    (change)="setQuantity($event)"
+    min="1"
+    max="10"
+  />
+  <app-icon-button
+    class="add-button"
+    [iconOption]="iconOption"
+    buttonText="Add Item"
+    (click)="addProductToCart()"
+    (mouseover)="lightIcon = true"
+    (mouseout)="lightIcon = false"
+    strokeColor="{{ lightIcon ? 'white' : 'black' }}"
+  ></app-icon-button>
+</div>

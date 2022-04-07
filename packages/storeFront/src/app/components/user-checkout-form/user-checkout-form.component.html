@@ -1,0 +1,181 @@
+<form
+  [formGroup]="checkoutForm"
+  (ngSubmit)="onFormSubmit()"
+  class="flex-col user-info-form"
+>
+  <h3>Personal Details</h3>
+  <label for="first-name">First Name </label>
+  <input
+    id="first-name"
+    type="text"
+    formControlName="firstName"
+    minlength="2"
+    maxlength="35"
+    required
+  />
+  <div
+    *ngIf="
+      firstName && firstName.invalid && (firstName.dirty || firstName.touched)
+    "
+    style="color: red"
+  >
+    <div *ngIf="firstName.errors?.['required']">first name is required.</div>
+    <div *ngIf="firstName.errors?.['minlength']">
+      first name must be at least 2 characters long.
+    </div>
+    <div *ngIf="firstName.errors?.['maxlength']">
+      first name must be shorter than 35 characters long.
+    </div>
+  </div>
+
+  <label for="last-name">Last Name </label>
+  <input
+    id="last-name"
+    type="text"
+    formControlName="lastName"
+    minlength="2"
+    maxlength="35"
+    required
+  />
+  <div
+    *ngIf="lastName && lastName.invalid && (lastName.dirty || lastName.touched)"
+    style="color: red"
+  >
+    <div *ngIf="lastName.errors?.['required']">last name is required.</div>
+    <div *ngIf="lastName.errors?.['minlength']">
+      last name must be at least 2 characters long.
+    </div>
+    <div *ngIf="lastName.errors?.['maxlength']">
+      last name must be shorter than 35 characters long.
+    </div>
+  </div>
+
+  <label for="email">Email </label>
+  <input id="email" type="text" formControlName="email" required />
+  <div
+    *ngIf="email && email.invalid && (email.dirty || email.touched)"
+    style="color: red"
+  >
+    <div *ngIf="email.errors?.['required']">email is required.</div>
+    <div *ngIf="email.errors?.['email']">email has invalid format.</div>
+  </div>
+
+  <label for="street-address">Street Address</label>
+  <input
+    id="street-address"
+    type="text"
+    formControlName="streetAddress"
+    required
+  />
+  <div
+    *ngIf="
+      streetAddress &&
+      streetAddress.invalid &&
+      (streetAddress.dirty || streetAddress.touched)
+    "
+    style="color: red"
+  >
+    <div *ngIf="streetAddress.errors?.['required']">
+      street address is required.
+    </div>
+  </div>
+
+  <label for="state">State </label>
+  <select name="state" id="state" formControlName="state" required>
+    <option value=""></option>
+    <option
+      *ngFor="let state of stateOptions | keyvalue"
+      value="{{ state.value }}"
+    >
+      {{ state.value }}
+    </option>
+  </select>
+
+  <div
+    *ngIf="state && state.invalid && (state.dirty || state.touched)"
+    style="color: red"
+  >
+    <div *ngIf="state.errors?.['required']">state is required.</div>
+  </div>
+
+  <label for="zip-code">Zip Code </label>
+  <input
+    id="zip-code"
+    type="text"
+    formControlName="zipCode"
+    minlength="5"
+    maxlength="5"
+    required
+  />
+  <div
+    *ngIf="zipCode && zipCode.invalid && (zipCode.dirty || zipCode.touched)"
+    style="color: red"
+  >
+    <div *ngIf="zipCode.errors?.['required']">zip code is required.</div>
+    <div *ngIf="zipCode.errors?.['minlength']">
+      zip code must be 5 characters long.
+    </div>
+    <div *ngIf="zipCode.errors?.['maxlength']">
+      zip code must be 5 characters long.
+    </div>
+  </div>
+
+  <h3>Card Details</h3>
+  <label for="card-number">Card Number </label>
+  <input
+    id="card-number"
+    type="text"
+    formControlName="cardNumber"
+    minlength="16"
+    maxlength="16"
+    required
+  />
+  <div
+    *ngIf="
+      cardNumber &&
+      cardNumber.invalid &&
+      (cardNumber.dirty || cardNumber.touched)
+    "
+    style="color: red"
+  >
+    <div *ngIf="cardNumber.errors?.['required']">card number is required.</div>
+    <div *ngIf="cardNumber.errors?.['minlength']">
+      card number must be 16 characters long.
+    </div>
+    <div *ngIf="cardNumber.errors?.['maxlength']">
+      card number must be 16 characters long.
+    </div>
+    <div *ngIf="cardNumber.errors?.['notANumber']">
+      card number must be a valid number.
+    </div>
+  </div>
+
+  <label for="cvv">CVV </label>
+  <input
+    id="cvv"
+    type="text"
+    formControlName="cvv"
+    minlength="3"
+    maxlength="3"
+    required
+  />
+  <div
+    *ngIf="cvv && cvv.invalid && (cvv.dirty || cvv.touched)"
+    style="color: red"
+  >
+    <div *ngIf="cvv.errors?.['required']">cvv is required.</div>
+    <div *ngIf="cvv.errors?.['minlength']">cvv must be 3 characters long.</div>
+    <div *ngIf="cvv.errors?.['maxlength']">cvv must be 3 characters long.</div>
+    <div *ngIf="cvv.errors?.['notANumber']">cvv must be a number</div>
+  </div>
+
+  <app-icon-button
+    class="checkout-button"
+    buttonText="Submit"
+    [iconOption]="iconOptions.CARD"
+    (mouseover)="lightIcon = true"
+    (mouseout)="lightIcon = false"
+    strokeColor="{{ lightIcon ? 'white' : 'black' }}"
+    [disabled]="checkoutForm.invalid"
+  ></app-icon-button>
+</form>

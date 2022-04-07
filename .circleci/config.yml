@@ -1,0 +1,56 @@
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@3.0
+
+workflows:
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+
+jobs:
+  build:
+    docker:
+      - image: cimg/node:16.14.2
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Install  Dependencies
+          command: npm i
+      - run:
+          name: Build Server
+          command: npm run build:server
+      - run:
+          name: Build Front-End
+          command: npm run build:frontend
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages/storeFront_API/build/*
+            - packages/storeFront/dist/store-front/*
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+        auth:
+          username: $DOCKER_USERNAME
+          password: $DOCKER_PASSWORD
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - aws-s3/copy:
+          arguments: --acl public-read --recursive
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-region: AWS_REGION
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          from: packages/storeFront/build
+          to: "s3://$S3_FRONT_END_BUCKET/"
