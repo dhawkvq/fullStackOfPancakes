@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   aws-s3: circleci/aws-s3@3.0
+  eb: circleci/aws-elastic-beanstalk@1.0.0
 
 workflows:
   build-deploy:
@@ -35,6 +36,7 @@ jobs:
           root: .
           paths:
             - packages/storeFront_API/build/*
+            - packages/storeFront_API/.elasticbeanstalk/*
             - packages/storeFront/dist/store-front/*
 
   deploy:
@@ -45,6 +47,7 @@ jobs:
           password: $DOCKER_PASSWORD
     steps:
       - checkout
+      - eb/setup
       - attach_workspace:
           at: .
       - aws-s3/copy:
@@ -54,3 +57,6 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           from: packages/storeFront/dist/store-front
           to: "s3://$S3_FRONT_END_BUCKET/"
+      - run:
+          name: Deploy Server to Elastic Beanstalk
+          command: eb deploy
