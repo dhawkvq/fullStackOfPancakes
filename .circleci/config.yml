@@ -58,10 +58,10 @@ jobs:
           to: "s3://$S3_FRONT_END_BUCKET/"
       - run:
           name: Initialize Elastic Beanstalk Application
-          command: eb init --platform node.js
+          command: cd packages/storeFront_API && eb init --platform node.js
       - run:
           name: Copy existing config for deployment
-          command: cd packages/storeFront_API && cp build/config.yml .elasticbeanstalk/config.yml
+          command: cp build/config.yml .elasticbeanstalk/config.yml
       - run:
           name: Deploy Server to Elastic Beanstalk
           command: eb deploy
