@@ -64,4 +64,4 @@ jobs:
           command: cd packages/storeFront_API && cp build/config.yml .elasticbeanstalk/config.yml
       - run:
           name: Deploy Server to Elastic Beanstalk
-          command: eb deploy
+          command: cd packages/storeFront_API && eb deploy
