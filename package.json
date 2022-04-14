@@ -4,7 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:frontend": "npm run test -w packages/storeFront",
+    "test:server": "npm run test -w packages/storeFront_API",
     "dev:frontend": "npm run start -w packages/storeFront",
     "dev:server": "npm run dev -w packages/storeFront_API",
     "build:frontend": "npm run build -w packages/storeFront",

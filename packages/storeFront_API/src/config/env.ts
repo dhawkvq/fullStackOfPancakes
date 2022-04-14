@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
 dotenv.config();
+import { throwError } from "../utils/throwError";
 
 const {
   SERVER_URL,
-  PG_HOST,
+  PG_HOST_DEV,
   PG_PORT,
   PG_USER,
   PG_PASSWORD,
@@ -14,19 +15,27 @@ const {
   SALT_ROUNDS,
   PEPPER,
   JWT_SECRET,
+  RDS_HOSTNAME,
+  RDS_USERNAME,
+  RDS_PASSWORD,
 } = process.env;
 
 export const isTest = NODE_ENV === "test";
+export const isStaging = NODE_ENV === "staging";
 
-const throwError = (message: string) => {
-  throw new Error(message);
-};
-
-const pgPassword = isTest ? TEST_PG_PASSWORD : PG_PASSWORD;
-
-const pgDbName = isTest ? TEST_PG_DB : PG_DB;
+const pgHost = isStaging ? RDS_HOSTNAME : PG_HOST_DEV;
 
 const pgPort = +(PG_PORT || 5432);
+
+const pgDbName = isTest ? TEST_PG_DB : isStaging ? undefined : PG_DB;
+
+const pgUser = isStaging ? RDS_USERNAME : PG_USER;
+
+const pgPassword = isTest
+  ? TEST_PG_PASSWORD
+  : isStaging
+  ? RDS_PASSWORD
+  : PG_PASSWORD;
 
 const SALT = SALT_ROUNDS ? +SALT_ROUNDS : 10;
 
@@ -37,8 +46,8 @@ export {
   pgDbName,
   pgPort,
   SERVER_URL,
-  PG_HOST,
-  PG_USER,
+  pgHost,
+  pgUser,
   SALT,
   PEPPER,
   jwtSecret,

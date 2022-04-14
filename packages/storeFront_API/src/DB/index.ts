@@ -1,9 +1,10 @@
 import { Pool } from "pg";
-import { pgPort } from "../config/env";
+import { pgPassword, pgPort, pgHost, pgDbName, pgUser } from "../config/env";
 
 export const pgDb = new Pool({
-  host: process.env.RDS_HOSTNAME,
+  host: pgHost,
+  database: pgDbName,
   port: pgPort,
-  user: process.env.RDS_USERNAME,
-  password: process.env.RDS_PASSWORD,
+  user: pgUser,
+  password: pgPassword,
 });

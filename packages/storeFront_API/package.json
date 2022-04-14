@@ -8,18 +8,19 @@
     "node": "16.14.2"
   },
   "scripts": {
-    "start": "npm run migrate-up:dev && node index.js",
+    "start": "npm run migrate-up:staging && node index.js",
     "bootstrap:build": "cp -r migrations build/migrations && cp database.json build/database.json && cp package.json build/package.json && cp config.yml build/config.yml",
     "clean": "rm -rf build || true",
     "dev": "nodemon -w ts-node src/index.ts",
-    "check": "cd dist && npm run migrate-up:dev && node index.js",
     "test": "cross-env NODE_ENV=test jasmine-ts --config=spec/support/jasmine.json",
     "build": "npm run clean && tsc --project ./ && npm run bootstrap:build && npm run zip:build",
     "zip:build": "cd build && zip -r storefrontApi.zip .",
     "migrate-up:dev": "db-migrate up -e dev --force-exit",
     "migrate-up:test": "db-migrate up -e test --force-exit",
+    "migrate-up:staging": "db-migrate up -e staging --force-exit",
     "migrate-down:dev": "db-migrate down -e dev --force-exit",
     "migrate-down:test": "db-migrate down -e test --force-exit",
+    "migrate-down:staging": "db-migrate down -e staging --force-exit",
     "make-migration": "db-migrate create create-dbs --sql-file",
     "refresh-db": "scripts/refresh_db.sh",
     "seed-db": "cross-env NODE_ENV=test scripts/seed_db.sh"
