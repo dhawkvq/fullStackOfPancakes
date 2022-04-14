@@ -63,8 +63,8 @@ npm run build:frontend
 
 <br>
 
-[Pipeline](./documentation/pipeline) gives a high level overview of CI/CD of this application.
+[Pipeline](./documentation/pipeline.MD) gives a high level overview of CI/CD of this application.
 
 <br>
 
-[Dependencies](./documentation/pipeline) Will show project dependencies and environment variables location for each service in need of them.
+[Dependencies](./documentation/dependencies.MD) Will show project dependencies and environment variables location for each service in need of them.
