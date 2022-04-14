@@ -2,7 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/dhawkvq/fullStackOfPancakes/tree/master.svg?style=svg)](https://circleci.com/gh/dhawkvq/fullStackOfPancakes/tree/master)
 
-This mono-repo is set up to for CI/CD of both the front-end storeFront Angular app as well as the backend Node.js server.
+Link to project --> [StoreFront](http://storefront-fe.s3-website-us-west-2.amazonaws.com/)
+
+This monorepo is set up to for CI/CD of both the front-end storeFront Angular app as well as the backend Node.js server.
 
 ## Prerequisites
 
@@ -57,4 +59,12 @@ npm run build:frontend
 
 # Further Reading
 
-[Application Infrastructure](./documentation/infrastructure.MD) gives a high level overview of the application.
+[Application Infrastructure](./documentation/infrastructure.MD) gives a high level overview of the application. As well as screenshots of current services health.
+
+<br>
+
+[Pipeline](./documentation/pipeline) gives a high level overview of CI/CD of this application.
+
+<br>
+
+[Dependencies](./documentation/pipeline) Will show project dependencies and environment variables location for each service in need of them.
