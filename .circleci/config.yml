@@ -57,6 +57,12 @@ jobs:
           from: packages/storeFront/dist/store-front
           to: "s3://$S3_FRONT_END_BUCKET/"
       - run:
+          name: Initialize Elastic Beanstalk Application
+          command: cd packages/storeFront_API && eb init --platform node.js
+      - run:
+          name: Copy existing config for deployment
+          command: cd packages/storeFront_API && cp build/config.yml .elasticbeanstalk/config.yml
+      - run:
           name: Set Elastic Beanstalk Environment Variables
           command:
             cd packages/storeFront_API && eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
@@ -72,12 +78,6 @@ jobs:
             S3_FRONT_END_BUCKET=$S3_FRONT_END_BUCKET \
             SALT_ROUNDS=$SALT_ROUNDS \
             SERVER_URL=$SERVER_URL
-      - run:
-          name: Initialize Elastic Beanstalk Application
-          command: cd packages/storeFront_API && eb init --platform node.js
-      - run:
-          name: Copy existing config for deployment
-          command: cd packages/storeFront_API && cp build/config.yml .elasticbeanstalk/config.yml
       - run:
           name: Deploy Server to Elastic Beanstalk
           command: cd packages/storeFront_API && eb deploy --profile default
