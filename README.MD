@@ -54,6 +54,18 @@ Bundle the front-end application:
 npm run build:frontend
 ```
 
+Run tests for the storeFront package
+
+```
+npm run test:frontend
+```
+
+Run tests for the storeFront_API package
+
+```
+npm run test:server
+```
+
 <br>
 <br>
 

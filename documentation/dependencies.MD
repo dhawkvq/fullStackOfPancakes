@@ -15,16 +15,3 @@ The following variables needed for CircleCi are located in the project settings 
 ```
 
 ![](./images/circleCi_env_vars.png)
-
-<br>
-
-**RDS Environment Variables**
-
-```
-The following variables are supplied to the Elastic Beanstalk container through shared environment variables that RDS exposes when attached.
-```
-
-- RDS_USERNAME
-- RDS_PASSWORD
-- RDS_HOSTNAME
-- RDS_PORT

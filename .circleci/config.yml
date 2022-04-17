@@ -57,6 +57,22 @@ jobs:
           from: packages/storeFront/dist/store-front
           to: "s3://$S3_FRONT_END_BUCKET/"
       - run:
+          name: Set Elastic Beanstalk Environment Variables
+          command:
+            cd packages/storeFront_API && eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+            AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
+            AWS_REGION=$AWS_REGION \
+            AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+            JWT_SECRET=$JWT_SECRET \
+            PEPPER=$PEPPER \
+            RDS_HOSTNAME=$RDS_HOSTNAME \
+            RDS_PASSWORD=$RDS_PASSWORD \
+            RDS_PORT=$RDS_PORT \
+            RDS_USERNAME=$RDS_USERNAME \
+            S3_FRONT_END_BUCKET=$S3_FRONT_END_BUCKET \
+            SALT_ROUNDS=$SALT_ROUNDS \
+            SERVER_URL=$SERVER_URL
+      - run:
           name: Initialize Elastic Beanstalk Application
           command: cd packages/storeFront_API && eb init --platform node.js
       - run:
